@@ -22,9 +22,9 @@ import { RegisterFormValidation } from "@/lib/validation";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
-import CustomFormField, { FormFieldType } from "../CustomFormField";
+import CustomFormField, { FormFieldType } from "../common/CustomFormField";
+import SubmitButton from "../common/SubmitButton";
 import { FileUploader } from "../FileUploader";
-import SubmitButton from "../SubmitButton";
 
 const RegisterForm = () => {
   const router = useRouter();

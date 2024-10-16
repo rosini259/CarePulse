@@ -16,8 +16,8 @@ import { auth } from "@/lib/actions/patient.actions";
 import { LoginFormValidation } from "@/lib/validation";
 
 import "react-phone-number-input/style.css";
-import CustomFormField, { FormFieldType } from "../CustomFormField";
-import SubmitButton from "../SubmitButton";
+import CustomFormField, { FormFieldType } from "../common/CustomFormField";
+import SubmitButton from "../common/SubmitButton";
 
 export const Loginform = () => {
   const router = useRouter();
