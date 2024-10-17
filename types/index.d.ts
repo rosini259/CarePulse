@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 declare type SearchParamProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -55,3 +54,18 @@ declare type UpdateAppointmentParams = {
   appointment: Appointment;
   type: string;
 };
+
+declare interface ICustomFormField {
+  control: Control<any>;
+  name: string;
+  label?: string;
+  fieldType: FormFieldType;
+  placeholder?: string;
+  iconSrc?: string;
+  iconAlt?: string;
+  renderSkeleton?: (field: any) => React.ReactNode;
+  showTimeSelect?: boolean;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  dateFormat?: string;
+}

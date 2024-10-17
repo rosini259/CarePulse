@@ -7,16 +7,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
-// import {
-//   createUser,
-//   getUserIdByEmail,
-//   login,
-// } from "@/lib/actions/patient.actions";
 import { auth } from "@/lib/actions/patient.actions";
-import { LoginFormValidation } from "@/lib/validation";
-
 import "react-phone-number-input/style.css";
-import CustomFormField, { FormFieldType } from "../common/CustomFormField";
+import { LoginFormValidation } from "@/lib/validation";
+import { FormFieldType } from "@/types/enums";
+
+import CustomFormField from "../common/CustomFormField";
 import SubmitButton from "../common/SubmitButton";
 
 export const Loginform = () => {

@@ -2,10 +2,10 @@
 
 import {
   getPaginationRowModel,
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
+  ColumnDef,
 } from "@tanstack/react-table";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext(),
+                          header.getContext()
                         )}
                   </TableHead>
                 );
@@ -72,6 +72,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
+
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
@@ -111,6 +112,7 @@ export function DataTable<TData, TValue>({
             alt="arrow"
           />
         </Button>
+
         <Button
           variant="outline"
           size="sm"

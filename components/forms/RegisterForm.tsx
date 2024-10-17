@@ -1,100 +1,23 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { Form, FormControl } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SelectItem } from "@/components/ui/select";
-import {
-  Doctors,
-  GenderOptions,
-  IdentificationTypes,
-  LoginformDefaultValues,
-} from "@/constants";
-import { createUser, registerPatient } from "@/lib/actions/patient.actions";
-import { RegisterFormValidation } from "@/lib/validation";
-
+import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
-import CustomFormField, { FormFieldType } from "../common/CustomFormField";
+import useRegisterForm from "@/hooks/useRegisterForm";
+import { FormFieldType } from "@/types/enums";
+
+import CustomFormField from "../common/CustomFormField";
 import SubmitButton from "../common/SubmitButton";
 import { FileUploader } from "../FileUploader";
 
 const RegisterForm = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof RegisterFormValidation>>({
-    resolver: zodResolver(RegisterFormValidation),
-    defaultValues: {
-      ...LoginformDefaultValues,
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof RegisterFormValidation>) => {
-    setIsLoading(true);
-
-    // Store file info in form data as
-    let formData;
-    if (
-      values.identificationDocument &&
-      values.identificationDocument?.length > 0
-    ) {
-      const blobFile = new Blob([values.identificationDocument[0]], {
-        type: values.identificationDocument[0].type,
-      });
-
-      formData = new FormData();
-      formData.append("blobFile", blobFile);
-      formData.append("fileName", values.identificationDocument[0].name);
-    }
-    const createNewUser = await createUser({
-      email: values.email,
-      password: values.password,
-    });
-    const userId = createNewUser.$id;
-    try {
-      const patient = {
-        userId, // bug user id have type any
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        phone: values.phone,
-        birthDate: new Date(values.birthDate),
-        gender: values.gender,
-        address: values.address,
-        occupation: values.occupation,
-        emergencyContactName: values.emergencyContactName,
-        emergencyContactNumber: values.emergencyContactNumber,
-        primaryPhysician: values.primaryPhysician,
-        insuranceProvider: values.insuranceProvider,
-        insurancePolicyNumber: values.insurancePolicyNumber,
-        allergies: values.allergies,
-        currentMedication: values.currentMedication,
-        familyMedicalHistory: values.familyMedicalHistory,
-        pastMedicalHistory: values.pastMedicalHistory,
-        identificationType: values.identificationType,
-        identificationNumber: values.identificationNumber,
-        identificationDocument: values.identificationDocument
-          ? formData
-          : undefined,
-      };
-      const newPatient = await registerPatient(patient);
-      if (newPatient) {
-        // bug replace userid with useremail and get userid in appointmentForm with getUserId
-        router.push(`/patients/${userId}/new-appointment`);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-
-    setIsLoading(false);
-  };
+  const { form, isLoading, onSubmit } = useRegisterForm();
 
   return (
     <Form {...form}>
