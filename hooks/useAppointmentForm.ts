@@ -12,7 +12,7 @@ import { getAppointmentSchema } from "@/lib/validation";
 import { Appointment } from "@/types/appwrite.types";
 
 export interface IAppointmentForm {
-  hyphenatedName: string;
+  hyphenatedName?: string;
   userId:string;
   patientId: string;
   type: "create" | "schedule" | "cancel";
