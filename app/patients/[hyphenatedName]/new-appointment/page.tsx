@@ -1,11 +1,14 @@
 import Image from "next/image";
 
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
-import { getPatient } from "@/lib/actions/patient.actions";
+import { getPatient, getUserIdByName } from "@/lib/actions/patient.actions";
+import { convertToSpaceSeparated } from "@/lib/utils";
 
-const Appointment = async ({ params: { userId } }: SearchParamProps) => {
-  const patient = await getPatient(userId);
-  console.log(userId)
+const Appointment = async ({
+  params: { hyphenatedName },
+}: SearchParamProps) => {
+  const userId = await getUserIdByName(convertToSpaceSeparated(hyphenatedName)!);
+  const patient = await getPatient(userId!);
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
@@ -20,7 +23,8 @@ const Appointment = async ({ params: { userId } }: SearchParamProps) => {
 
           <AppointmentForm
             patientId={patient?.$id}
-            userId={userId}
+            hyphenatedName={hyphenatedName!}
+            userId={userId!}
             type="create"
           />
 

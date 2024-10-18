@@ -37,7 +37,7 @@ export const createUser = async (user: CreateUserParams) => {
       user.email,
       undefined,
       user.password,
-      undefined
+      user.name
     );
 
     return parseStringify(newuser);
@@ -95,7 +95,6 @@ export const registerPatient = async ({
 
 // GET PATIENT
 export const getPatient = async (userId: string) => {
-  // bug cant run getPatient
   try {
     const patients = await databases.listDocuments(
       DATABASE_ID!,
@@ -108,5 +107,15 @@ export const getPatient = async (userId: string) => {
       "An error occurred while retrieving the patient details:",
       error
     );
+  }
+};
+
+// get userId with name
+export const getUserIdByName = async (name:string) => {
+  try {
+    const userId = (await users.list([Query.equal("name",name)])).users[0].$id
+    return userId
+  } catch (error) {
+    console.error(error)
   }
 };

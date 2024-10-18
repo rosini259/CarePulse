@@ -1,14 +1,8 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 import RegisterForm from "@/components/forms/RegisterForm";
-import { getPatient } from "@/lib/actions/patient.actions";
 
-const Register = async ({ params: { userId } }: SearchParamProps) => {
-  const patient = await getPatient(userId);
-  // bug replace userid with useremail and get userid in appointmentForm with getUserId
-
-  if (patient) redirect(`/patients/${userId}/new-appointment`);
+const Register = async () => {
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container">

@@ -6,6 +6,7 @@ import { z } from "zod";
 
 import { LoginformDefaultValues } from "@/constants";
 import { createUser, registerPatient } from "@/lib/actions/patient.actions";
+import { convertToHyphenated } from "@/lib/utils";
 import { RegisterFormValidation } from "@/lib/validation";
 
 const useRegisterForm = () => {
@@ -38,6 +39,7 @@ const useRegisterForm = () => {
     const createNewUser = await createUser({
       email: values.email,
       password: values.password,
+      name:values.name
     });
     const userId = createNewUser.$id;
     try {
@@ -68,8 +70,8 @@ const useRegisterForm = () => {
       };
       const newPatient = await registerPatient(patient);
       if (newPatient) {
-        // bug replace userid with useremail and get userid in appointmentForm with getUserId
-        router.push(`/patients/${userId}/new-appointment`);
+        const name = convertToHyphenated(newPatient.name)
+        router.push(`/patients/${name}/new-appointment`);
       }
     } catch (error) {
       console.error(error);

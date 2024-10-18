@@ -12,13 +12,15 @@ import { getAppointmentSchema } from "@/lib/validation";
 import { Appointment } from "@/types/appwrite.types";
 
 export interface IAppointmentForm {
-  userId: string;
+  hyphenatedName: string;
+  userId:string;
   patientId: string;
   type: "create" | "schedule" | "cancel";
   appointment?: Appointment;
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 const useAppointmentForm = ({
+  hyphenatedName,
   userId,
   patientId,
   type,
@@ -27,7 +29,6 @@ const useAppointmentForm = ({
 }: IAppointmentForm) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
   const AppointmentFormValidation = getAppointmentSchema(type);
 
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
@@ -75,9 +76,8 @@ const useAppointmentForm = ({
         const newAppointment = await createAppointment(appointment);
         if (newAppointment) {
           form.reset();
-          // bug replace userid with useremail and get userid in appointmentForm with getUserId
           router.push(
-            `/patients/${userId}/new-appointment/success?appointmentId=${newAppointment.$id}`
+            `/patients/${hyphenatedName}/new-appointment/success?appointmentId=${newAppointment.$id}`
           );
         }
       } else {

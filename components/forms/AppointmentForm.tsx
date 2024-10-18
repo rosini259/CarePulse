@@ -18,9 +18,11 @@ export const AppointmentForm = ({
   type = "create",
   appointment,
   setOpen,
+  hyphenatedName
 }: IAppointmentForm) => {
   const { form, onSubmit, buttonLabel, isLoading } = useAppointmentForm({
     userId,
+    hyphenatedName,
     patientId,
     type,
     appointment,

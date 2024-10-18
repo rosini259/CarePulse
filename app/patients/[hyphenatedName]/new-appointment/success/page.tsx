@@ -8,13 +8,12 @@ import { formatDateTime } from "@/lib/utils";
 
 const RequestSuccess = async ({
   searchParams,
-  params: { userId },
+  params: { hyphenatedName },
 }: SearchParamProps) => {
   const appointmentId = (searchParams?.appointmentId as string) || "";
   const appointment = await getAppointment(appointmentId);
-
   const doctor = Doctors.find(
-    (doctor) => doctor.name === appointment.primaryPhysician,
+    (doctor) => doctor.name === appointment.primaryPhysician
   );
 
   return (
@@ -68,9 +67,7 @@ const RequestSuccess = async ({
         </section>
 
         <Button variant="outline" className="shad-primary-btn" asChild>
-          {/* bug replace userid with useremail and get userid in appointmentForm
-          with getUserId */}
-          <Link href={`/patients/${userId}/new-appointment`}>
+          <Link href={`/patients/${hyphenatedName}/new-appointment`}>
             New Appointment
           </Link>
         </Button>

@@ -10,6 +10,7 @@ declare type Status = "pending" | "scheduled" | "cancelled";
 declare interface CreateUserParams {
   email: string;
   password: string;
+  name?:string
 }
 declare interface User extends CreateUserParams {
   name: string | undefined;

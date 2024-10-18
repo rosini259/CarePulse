@@ -82,3 +82,13 @@ export function encryptKey(passkey: string) {
 export function decryptKey(passkey: string) {
   return atob(passkey);
 }
+
+export function convertToHyphenated(fullName:string) {
+  return fullName.replace(/\s+/g, '-');
+}
+
+export function convertToSpaceSeparated(hyphenatedName:string) {
+  if(hyphenatedName !== undefined){
+    return hyphenatedName.replace(/-/g, " ");
+  }
+}

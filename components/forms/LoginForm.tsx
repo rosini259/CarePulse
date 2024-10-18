@@ -7,8 +7,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
-import { auth } from "@/lib/actions/patient.actions";
+import { auth, getPatient } from "@/lib/actions/patient.actions";
 import "react-phone-number-input/style.css";
+import { convertToHyphenated } from "@/lib/utils";
 import { LoginFormValidation } from "@/lib/validation";
 import { FormFieldType } from "@/types/enums";
 
@@ -27,17 +28,21 @@ export const Loginform = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof LoginFormValidation>) => {
+  const onSubmit = async (values: CreateUserParams) => { // bug conflict types between createuserparams and loginformvalidation
     setIsLoading(true);
 
     try {
       const user = {
         email: values.email,
         password: values.password,
+        name:values.name
       };
+      // bug show error if the user not found
       const authUser = await auth(user);
+      const patient = await getPatient(authUser?.userId!)
       if (authUser) {
-        router.push(`/patients/${authUser.$id}/new-appointment`);
+        const name = convertToHyphenated(patient.name) 
+        router.push(`/patients/${name}/new-appointment`);
       }
     } catch (error) {
       console.error(error);
