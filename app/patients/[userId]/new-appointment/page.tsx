@@ -6,7 +6,6 @@ import { getPatient } from "@/lib/actions/patient.actions";
 const Appointment = async ({ params: { userId } }: SearchParamProps) => {
   const patient = await getPatient(userId);
   console.log(userId)
-  // bug cant access userid or patient
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
