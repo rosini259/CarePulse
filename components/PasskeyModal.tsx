@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -53,6 +52,7 @@ export const PasskeyModal = () => {
             maxLength={6}
             value={passkey}
             onChange={(value) => setPasskey(value)}
+            onComplete={()=> validatePasskey()}
           >
             <InputOTPGroup className="shad-otp">
               <InputOTPSlot className="shad-otp-slot" index={0} />
@@ -63,7 +63,6 @@ export const PasskeyModal = () => {
               <InputOTPSlot className="shad-otp-slot" index={5} />
             </InputOTPGroup>
           </InputOTP>
-          {/* bug replace validate admin btn with function run after complete the passkey */}
           {error && (
             <p className="shad-error text-14-regular mt-4 flex justify-center">
               {error}
@@ -71,12 +70,12 @@ export const PasskeyModal = () => {
           )}
         </div>
         <AlertDialogFooter>
-          <AlertDialogAction
+          {/* <AlertDialogAction
             onClick={(e) => validatePasskey(e)}
             className="shad-primary-btn w-full"
           >
             Enter Admin Passkey
-          </AlertDialogAction>
+          </AlertDialogAction> */}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -50,7 +50,7 @@ export const AppointmentModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <AppointmentForm // bug make sure u dont need hyphenatedname
+        <AppointmentForm
           userId={userId}
           patientId={patientId}
           type={type}
