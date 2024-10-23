@@ -22,7 +22,7 @@ const useRegisterForm = () => {
   const onSubmit = async (values: z.infer<typeof RegisterFormValidation>) => {
     setIsLoading(true);
 
-    // Store file info in form data as
+    // bug dublicated Store file info in form data as
     let formData;
     if (
       values.identificationDocument &&

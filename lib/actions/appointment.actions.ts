@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { ID, Query } from "node-appwrite";
+import { ID, Query, InputFile } from "node-appwrite";
 
 import { Appointment } from "@/types/appwrite.types";
 
@@ -9,6 +9,9 @@ import {
   APPOINTMENT_COLLECTION_ID,
   DATABASE_ID,
   databases,
+  DOCTOR_COLLECTION_ID,
+  storage,
+  BUCKET_ID,ENDPOINT,PROJECT_ID
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
 
@@ -117,5 +120,45 @@ export const getAppointment = async (appointmentId: string) => {
       "An error occurred while retrieving the existing patient:",
       error
     );
+  }
+};
+
+// Add doctor
+export const AddDoctor = async ({
+  nameDoctor,
+  doctorPictureUrl,
+}: {
+  nameDoctor: string;
+  doctorPictureUrl: FormData;
+}) => {
+  try {
+    // upload file
+    let file;
+    if (doctorPictureUrl) {
+      const inputFile =
+        doctorPictureUrl &&
+        InputFile.fromBlob(
+          doctorPictureUrl?.get("blobFile") as Blob,
+          doctorPictureUrl?.get("fileName") as string
+        );
+
+      file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
+    }
+    // add new doctor
+    const newDoctor = await databases.createDocument(
+      DATABASE_ID!,
+      DOCTOR_COLLECTION_ID!,
+      ID.unique(),
+      {
+        nameDoctor,
+        // identificationDocumentId: file?.$id ? file.$id : null,
+        doctorPictureUrl: file?.$id
+          ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view??project=${PROJECT_ID}`
+          : null,
+      }
+    );
+    return newDoctor;
+  } catch (error) {
+    console.error(error);
   }
 };

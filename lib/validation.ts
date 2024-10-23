@@ -143,3 +143,9 @@ export function getAppointmentSchema(type: string) {
       return ScheduleAppointmentSchema;
   }
 }
+
+export const AddDoctorSchema = z.object({
+  nameDoctor: z.string().min(2, "type at least two characters"),
+  doctorPictureUrl: z.custom<File[]>().optional(),
+});
+// bug note if the key in the object of validation (zodschema) not equal to name of form field the submit not working and you will never know the reason when you put resolver in useform
