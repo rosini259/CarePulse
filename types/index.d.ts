@@ -60,7 +60,7 @@ declare interface ICustomFormField {
   control: Control<any>;
   name: string;
   label?: string;
-  fieldType: FormFieldType;
+  fieldType: FormFieldType; // get this type out of here it need to import control and formfieldtype
   placeholder?: string;
   iconSrc?: string;
   iconAlt?: string;

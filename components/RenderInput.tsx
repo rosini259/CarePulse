@@ -1,5 +1,6 @@
 import { E164Number } from "libphonenumber-js/core";
 import Image from "next/image";
+import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import PhoneInput from "react-phone-number-input";
 
@@ -18,6 +19,8 @@ const RenderInput = ({
   field: any;
   props: ICustomFormField;
 }) => {
+  const [showPasswordValue, setShowPasswordValue] = useState("opend");
+  const [showPasswordBool, setShowPasswordBool] = useState(false);
   switch (props.fieldType) {
     case FormFieldType.INPUT:
       return (
@@ -138,8 +141,24 @@ const RenderInput = ({
               placeholder={props.placeholder}
               {...field}
               className="shad-input border-0"
+              showpasswordtype={showPasswordBool ? "text" : "password"}
             />
           </FormControl>
+          <Image
+            src={`/assets/icons/eye-${showPasswordValue}.svg`}
+            width={24}
+            height={24}
+            alt="show password"
+            className="mr-3 cursor-pointer"
+            onClick={() => {
+              setShowPasswordBool((prev) => !prev);
+              if (showPasswordBool) {
+                setShowPasswordValue("opend");
+              } else {
+                setShowPasswordValue("closed");
+              }
+            }}
+          />
         </div>
       );
 
