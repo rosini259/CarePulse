@@ -67,7 +67,6 @@ export const Loginform = () => {
           iconSrc="/assets/icons/email.svg"
           iconAlt="email"
         />
-        {/* bug password show\hide */}
         <CustomFormField
           fieldType={FormFieldType.PASSWORD}
           control={form.control}
