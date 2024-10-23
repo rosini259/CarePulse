@@ -6,7 +6,7 @@ import { z } from "zod";
 
 import { LoginformDefaultValues } from "@/constants";
 import { createUser, registerPatient } from "@/lib/actions/patient.actions";
-import { convertToHyphenated } from "@/lib/utils";
+import { convertToHyphenated, storeFileInfoAsFormdata } from "@/lib/utils";
 import { RegisterFormValidation } from "@/lib/validation";
 
 const useRegisterForm = () => {
@@ -21,21 +21,7 @@ const useRegisterForm = () => {
 
   const onSubmit = async (values: z.infer<typeof RegisterFormValidation>) => {
     setIsLoading(true);
-
-    // bug dublicated Store file info in form data as
-    let formData;
-    if (
-      values.identificationDocument &&
-      values.identificationDocument?.length > 0
-    ) {
-      const blobFile = new Blob([values.identificationDocument[0]], {
-        type: values.identificationDocument[0].type,
-      });
-
-      formData = new FormData();
-      formData.append("blobFile", blobFile);
-      formData.append("fileName", values.identificationDocument[0].name);
-    }
+    const formData = storeFileInfoAsFormdata(values.identificationDocument);
     const createNewUser = await createUser({
       email: values.email,
       password: values.password,

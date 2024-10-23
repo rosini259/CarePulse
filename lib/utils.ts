@@ -92,3 +92,17 @@ export function convertToSpaceSeparated(hyphenatedName:string) {
     return hyphenatedName.replace(/-/g, " ");
   }
 }
+
+export function storeFileInfoAsFormdata(fileData){
+  let formData;
+  if (fileData && fileData?.length > 0) {
+    const blobFile = new Blob([fileData[0]], {
+      type: fileData[0].type,
+    });
+
+    formData = new FormData();
+    formData.append("blobFile", blobFile);
+    formData.append("fileName", fileData[0].name);
+  }
+  return formData
+}

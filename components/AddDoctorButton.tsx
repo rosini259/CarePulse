@@ -12,7 +12,7 @@ import {
 import AddDoctorForm from "./forms/AddDoctorForm";
 import { Button } from "./ui/button";
 
-
+// bug after submit we need to close the modal
 const AddDoctorButton = () => {
   const [open, setOpen] = useState(false);
   return (
