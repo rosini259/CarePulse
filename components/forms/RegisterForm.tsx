@@ -35,7 +35,6 @@ const RegisterForm = () => {
             <h2 className="sub-header">Personal Information</h2>
           </div>
           {/* NAME */}
-          {/* bug A component is changing an uncontrolled input to be controlled */}
           <CustomFormField
             fieldType={FormFieldType.INPUT}
             control={form.control}

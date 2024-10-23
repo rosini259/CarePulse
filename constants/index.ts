@@ -1,8 +1,7 @@
 export const GenderOptions = ["male", "female"];
 
 export const LoginformDefaultValues = {
-  firstName: "",
-  lastName: "",
+  name: "",
   email: "",
   password: "",
   phone: "",
