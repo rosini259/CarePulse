@@ -16,7 +16,7 @@ import {
 import { parseStringify } from "../utils";
 
 // Auth Login
-export const auth = async (user: CreateUserParams) => {
+export const auth = async (user: ILoginUserParams) => {
   try {
     const promise = account.createEmailPasswordSession(
       user.email,
@@ -29,7 +29,7 @@ export const auth = async (user: CreateUserParams) => {
 };
 
 // CREATE APPWRITE USER
-export const createUser = async (user: CreateUserParams) => {
+export const createUser = async (user: ILoginUserParams) => {
   try {
     // Create new user -> https://appwrite.io/docs/references/1.5.x/server-nodejs/users#create
     const newuser = await users.create(

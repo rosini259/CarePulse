@@ -28,7 +28,7 @@ export const Loginform = () => {
     },
   });
 
-  const onSubmit = async (values: CreateUserParams) => { // bug conflict types between createuserparams and loginformvalidation
+  const onSubmit = async (values: ILoginUserParams) => {
     setIsLoading(true);
 
     try {
