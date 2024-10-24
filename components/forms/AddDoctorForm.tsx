@@ -15,7 +15,7 @@ import SubmitButton from "../common/SubmitButton";
 import { FileUploader } from "../FileUploader";
 import { Form, FormControl } from "../ui/form";
 
-const AddDoctorForm = () => {
+const AddDoctorForm = ({ setOpenModal }: IAddDoctorFormProps) => {
   const form = useForm<z.infer<typeof AddDoctorSchema>>({
     resolver: zodResolver(AddDoctorSchema),
     defaultValues: {
@@ -27,7 +27,7 @@ const AddDoctorForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (data: typeof AddDoctorSchema._type) => {
     setIsLoading(true);
-    const formData = storeFileInfoAsFormdata(data.doctorPictureUrl)
+    const formData = storeFileInfoAsFormdata(data.doctorPictureUrl);
     const DoctorDetails = {
       nameDoctor: data.nameDoctor,
       doctorPictureUrl: data.doctorPictureUrl ? formData : undefined,
@@ -36,7 +36,8 @@ const AddDoctorForm = () => {
       nameDoctor: DoctorDetails.nameDoctor,
       doctorPictureUrl: DoctorDetails.doctorPictureUrl!,
     });
-      setIsLoading(false);
+    setIsLoading(false);
+    setOpenModal(false);
   };
   return (
     <Form {...form}>
