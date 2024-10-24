@@ -70,3 +70,7 @@ declare interface ICustomFormField {
   children?: React.ReactNode;
   dateFormat?: string;
 }
+
+interface IAddDoctorFormProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};

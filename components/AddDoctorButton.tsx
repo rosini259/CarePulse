@@ -12,11 +12,10 @@ import {
 import AddDoctorForm from "./forms/AddDoctorForm";
 import { Button } from "./ui/button";
 
-// bug after submit we need to close the modal
 const AddDoctorButton = () => {
-  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={openModal} onOpenChange={setOpenModal}>
       <DialogTrigger asChild>
         <Button
           size="sm"
@@ -34,7 +33,7 @@ const AddDoctorButton = () => {
           </DialogTitle>
         </DialogHeader>
 
-        <AddDoctorForm/>
+        <AddDoctorForm setOpenModal={setOpenModal}/>
       </DialogContent>
     </Dialog>
   );
