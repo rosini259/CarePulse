@@ -3,9 +3,9 @@
 import Image from "next/image";
 
 import { SelectItem } from "@/components/ui/select";
-import { Doctors } from "@/constants";
 import useAppointmentForm, { IAppointmentForm } from "@/hooks/useAppointmentForm";
 import "react-datepicker/dist/react-datepicker.css";
+import useDoctorList from "@/hooks/useDoctorList";
 import { FormFieldType } from "@/types/enums";
 
 import CustomFormField from "../common/CustomFormField";
@@ -28,6 +28,7 @@ export const AppointmentForm = ({
     appointment,
     setOpen,
   });
+  const { doctors, loading } = useDoctorList();
 
   return (
     <Form {...form}>
@@ -50,21 +51,27 @@ export const AppointmentForm = ({
               label="Doctor"
               placeholder="Select a doctor"
             >
+              {loading && <div>Loading...</div>}
               {/* bug make the first option is the primaryPhysician */}
-              {Doctors.map((doctor, i) => (
-                <SelectItem key={doctor.name + i} value={doctor.name}>
-                  <div className="flex cursor-pointer items-center gap-2">
-                    <Image
-                      src={doctor.image}
-                      width={32}
-                      height={32}
-                      alt="doctor"
-                      className="rounded-full border border-dark-500"
-                    />
-                    <p>{doctor.name}</p>
-                  </div>
-                </SelectItem>
-              ))}
+              {/* bug there is dublication in this element */}
+              {!loading &&
+                doctors?.map((doctor, i) => (
+                  <SelectItem
+                    key={doctor.nameDoctor + i}
+                    value={doctor.nameDoctor}
+                  >
+                    <div className="flex cursor-pointer items-center gap-2">
+                      <Image
+                        src={doctor.doctorPictureUrl}
+                        width={32}
+                        height={32}
+                        alt="doctor"
+                        className="size-9 rounded-full border border-dark-500 "
+                      />
+                      <p>{doctor.nameDoctor}</p>
+                    </div>
+                  </SelectItem>
+                ))}
             </CustomFormField>
 
             <CustomFormField

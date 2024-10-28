@@ -12,6 +12,7 @@ import {
   databases,
   storage,
   users,
+  DOCTOR_COLLECTION_ID
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
 
@@ -111,11 +112,22 @@ export const getPatient = async (userId: string) => {
 };
 
 // get userId with name
-export const getUserIdByName = async (name:string) => {
+export const getUserIdByName = async (name: string) => {
   try {
-    const userId = (await users.list([Query.equal("name",name)])).users[0].$id
-    return userId
+    const userId = (await users.list([Query.equal("name", name)])).users[0].$id;
+    return userId;
   } catch (error) {
-    console.error(error)
+    console.error(error);
+  }
+};
+
+// get doctors
+// bug rename server actions pages as patients and appointment
+export const getDoctors = async () => {
+  try {
+    const doctorsList = await databases.listDocuments(DATABASE_ID!,DOCTOR_COLLECTION_ID!);
+    return doctorsList
+  } catch (error) {
+    console.error(error);
   }
 };

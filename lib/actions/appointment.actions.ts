@@ -11,7 +11,9 @@ import {
   databases,
   DOCTOR_COLLECTION_ID,
   storage,
-  BUCKET_ID,ENDPOINT,PROJECT_ID
+  BUCKET_ID,
+  ENDPOINT,
+  PROJECT_ID,
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
 
@@ -161,4 +163,19 @@ export const AddDoctor = async ({
   } catch (error) {
     console.error(error);
   }
+};
+
+// getDoctorImageByName
+export const getDoctorImageByName = async (name:string) => {
+  try {
+    const imageUrl = await databases.listDocuments(
+    DATABASE_ID!,
+    DOCTOR_COLLECTION_ID!,
+    [Query.equal("nameDoctor",name)]
+  );
+  return imageUrl.documents[0].doctorPictureUrl; // type error cause document type not updated
+  } catch (error) {
+    console.error(error)
+  }
+  
 };

@@ -6,9 +6,10 @@ import { Form, FormControl } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SelectItem } from "@/components/ui/select";
-import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
+import { GenderOptions, IdentificationTypes } from "@/constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
+import useDoctorList from "@/hooks/useDoctorList";
 import useRegisterForm from "@/hooks/useRegisterForm";
 import { FormFieldType } from "@/types/enums";
 
@@ -18,7 +19,7 @@ import { FileUploader } from "../FileUploader";
 
 const RegisterForm = () => {
   const { form, isLoading, onSubmit } = useRegisterForm();
-
+  const {doctors,loading} = useDoctorList()
   return (
     <Form {...form}>
       <form
@@ -158,20 +159,26 @@ const RegisterForm = () => {
             label="Primary care physician"
             placeholder="Select a physician"
           >
-            {Doctors.map((doctor, i) => (
-              <SelectItem key={doctor.name + i} value={doctor.name}>
-                <div className="flex cursor-pointer items-center gap-2">
-                  <Image
-                    src={doctor.image}
-                    width={32}
-                    height={32}
-                    alt="doctor"
-                    className="rounded-full border border-dark-500"
-                  />
-                  <p>{doctor.name}</p>
-                </div>
-              </SelectItem>
-            ))}
+            {loading && <div>Loading...</div>}
+            {/* bug there is dublication in this element */}
+            {!loading &&
+              doctors?.map((doctor, i) => (
+                <SelectItem
+                  key={doctor.nameDoctor + i}
+                  value={doctor.nameDoctor}
+                >
+                  <div className="flex cursor-pointer items-center gap-2">
+                    <Image
+                      src={doctor.doctorPictureUrl}
+                      width={32}
+                      height={32}
+                      alt="doctor"
+                      className="size-9 rounded-full border border-dark-500 "
+                    />
+                    <p>{doctor.nameDoctor}</p>
+                  </div>
+                </SelectItem>
+              ))}
           </CustomFormField>
 
           {/* INSURANCE & POLICY NUMBER */}

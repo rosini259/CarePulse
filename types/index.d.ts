@@ -74,3 +74,9 @@ declare interface ICustomFormField {
 interface IAddDoctorFormProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
+// bug Document is not assign
+interface IDoctorsListDocument extends Models.Document {
+  nameDoctor: string;
+  doctorPictureUrl: string;
+}
+type TDoctorsList = IDoctorsListDocument[] | undefined;
