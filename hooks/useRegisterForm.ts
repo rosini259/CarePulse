@@ -21,7 +21,7 @@ const useRegisterForm = () => {
 
   const onSubmit = async (values: z.infer<typeof RegisterFormValidation>) => {
     setIsLoading(true);
-    const formData = storeFileInfoAsFormdata(values.identificationDocument);
+    const formData = storeFileInfoAsFormdata(values.identificationDocument!);
     const createNewUser = await createUser({
       email: values.email,
       password: values.password,

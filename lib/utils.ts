@@ -93,7 +93,7 @@ export function convertToSpaceSeparated(hyphenatedName:string) {
   }
 }
 
-export function storeFileInfoAsFormdata(fileData){
+export function storeFileInfoAsFormdata(fileData: File[]){
   let formData;
   if (fileData && fileData?.length > 0) {
     const blobFile = new Blob([fileData[0]], {

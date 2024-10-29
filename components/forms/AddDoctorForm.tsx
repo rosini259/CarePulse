@@ -27,7 +27,7 @@ const AddDoctorForm = ({ setOpenModal }: IAddDoctorFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (data: typeof AddDoctorSchema._type) => {
     setIsLoading(true);
-    const formData = storeFileInfoAsFormdata(data.doctorPictureUrl);
+    const formData = storeFileInfoAsFormdata(data.doctorPictureUrl!);
     const DoctorDetails = {
       nameDoctor: data.nameDoctor,
       doctorPictureUrl: data.doctorPictureUrl ? formData : undefined,
