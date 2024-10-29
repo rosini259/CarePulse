@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 
 import { SelectItem } from "@/components/ui/select";
 import useAppointmentForm, {
@@ -32,7 +33,14 @@ export const AppointmentForm = ({
     setOpen,
     primaryPhysician,
   });
+
   const { doctors, loading } = useDoctorList();
+
+  useEffect(() => {
+    if (form.getValues("primaryPhysician") === "") {
+      form.setValue("primaryPhysician", primaryPhysician!);
+    }
+  }, [form, primaryPhysician]);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
@@ -44,7 +52,6 @@ export const AppointmentForm = ({
             </p>
           </section>
         )}
-
         {type !== "cancel" && (
           <>
             <CustomFormField
@@ -62,7 +69,6 @@ export const AppointmentForm = ({
                   <SelectItem
                     key={doctor.nameDoctor + i}
                     value={doctor.nameDoctor}
-                    
                   >
                     <div className="flex cursor-pointer items-center gap-2">
                       <Image
