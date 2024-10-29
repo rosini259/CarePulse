@@ -111,6 +111,7 @@ const RenderInput = ({
       );
 
     case FormFieldType.SELECT:
+      field.value = props.value
       return (
         <FormControl>
           <Select onValueChange={field.onChange} defaultValue={field.value}>

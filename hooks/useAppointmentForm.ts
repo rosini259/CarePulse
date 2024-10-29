@@ -13,11 +13,12 @@ import { Appointment } from "@/types/appwrite.types";
 
 export interface IAppointmentForm {
   hyphenatedName?: string;
-  userId:string;
+  userId: string;
   patientId: string;
   type: "create" | "schedule" | "cancel";
   appointment?: Appointment;
   setOpen?: Dispatch<SetStateAction<boolean>>;
+  primaryPhysician?:string
 }
 const useAppointmentForm = ({
   hyphenatedName,

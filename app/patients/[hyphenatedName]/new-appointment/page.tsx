@@ -26,6 +26,7 @@ const Appointment = async ({
             hyphenatedName={hyphenatedName!}
             userId={userId!}
             type="create"
+            primaryPhysician={patient.primaryPhysician}
           />
 
           <p className="copyright mt-10 py-12">© 2024 CarePluse</p>

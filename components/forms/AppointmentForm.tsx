@@ -3,7 +3,9 @@
 import Image from "next/image";
 
 import { SelectItem } from "@/components/ui/select";
-import useAppointmentForm, { IAppointmentForm } from "@/hooks/useAppointmentForm";
+import useAppointmentForm, {
+  IAppointmentForm,
+} from "@/hooks/useAppointmentForm";
 import "react-datepicker/dist/react-datepicker.css";
 import useDoctorList from "@/hooks/useDoctorList";
 import { FormFieldType } from "@/types/enums";
@@ -18,7 +20,8 @@ export const AppointmentForm = ({
   type = "create",
   appointment,
   setOpen,
-  hyphenatedName
+  hyphenatedName,
+  primaryPhysician
 }: IAppointmentForm) => {
   const { form, onSubmit, buttonLabel, isLoading } = useAppointmentForm({
     userId,
@@ -27,9 +30,9 @@ export const AppointmentForm = ({
     type,
     appointment,
     setOpen,
+    primaryPhysician,
   });
   const { doctors, loading } = useDoctorList();
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
@@ -50,15 +53,16 @@ export const AppointmentForm = ({
               name="primaryPhysician"
               label="Doctor"
               placeholder="Select a doctor"
+              value={primaryPhysician!}
             >
               {loading && <div>Loading...</div>}
-              {/* bug make the first option is the primaryPhysician */}
               {/* bug there is dublication in this element */}
               {!loading &&
                 doctors?.map((doctor, i) => (
                   <SelectItem
                     key={doctor.nameDoctor + i}
                     value={doctor.nameDoctor}
+                    
                   >
                     <div className="flex cursor-pointer items-center gap-2">
                       <Image

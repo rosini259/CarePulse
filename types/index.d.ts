@@ -69,6 +69,7 @@ declare interface ICustomFormField {
   disabled?: boolean;
   children?: React.ReactNode;
   dateFormat?: string;
+  value?:string
 }
 
 interface IAddDoctorFormProps {
