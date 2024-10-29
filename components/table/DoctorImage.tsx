@@ -10,7 +10,7 @@ const DoctorImage = ({ doctorName }:{doctorName:string}) => {
     const fetchDoctorImage = async () => {
       try {
         const image = await getDoctorImageByName(doctorName);
-        setDoctorImage(image);
+        setDoctorImage(image!);
       } catch (error) {
         console.error(error);
       }
