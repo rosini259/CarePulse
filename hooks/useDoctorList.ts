@@ -1,6 +1,14 @@
+import { Models } from "node-appwrite";
 import { useEffect, useState } from "react";
 
 import { getDoctors } from "@/lib/actions/patient.actions";
+
+export interface IDoctorsListDocument extends Models.Document {
+  nameDoctor: string;
+  doctorPictureUrl: string;
+}
+
+type TDoctorsList = IDoctorsListDocument[] | undefined;
 
 const useDoctorList = () => {
   const [doctors, setDoctors] = useState<TDoctorsList>([]);
@@ -19,7 +27,7 @@ const useDoctorList = () => {
     };
     fetchDoctors();
   }, []);
-  return {loading,doctors};
+  return { loading, doctors };
 };
 
 export default useDoctorList;

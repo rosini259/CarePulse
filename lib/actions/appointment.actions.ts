@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { ID, Query, InputFile } from "node-appwrite";
 
+import { IDoctorsListDocument } from "@/hooks/useDoctorList";
 import { Appointment } from "@/types/appwrite.types";
 
 import {
@@ -173,7 +174,8 @@ export const getDoctorImageByName = async (name:string) => {
     DOCTOR_COLLECTION_ID!,
     [Query.equal("nameDoctor",name)]
   );
-  return imageUrl.documents[0].doctorPictureUrl; // type error cause document type not updated
+  const document = imageUrl.documents[0] as IDoctorsListDocument
+  return document.doctorPictureUrl;
   } catch (error) {
     console.error(error)
   }
