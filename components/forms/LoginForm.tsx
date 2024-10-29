@@ -63,7 +63,7 @@ export const Loginform = () => {
           control={form.control}
           name="email"
           label="Email"
-          placeholder="MohamedSami@gmail.com"
+          placeholder="example@gmail.com"
           iconSrc="/assets/icons/email.svg"
           iconAlt="email"
         />
