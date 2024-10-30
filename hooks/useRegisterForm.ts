@@ -27,10 +27,10 @@ const useRegisterForm = () => {
       password: values.password,
       name:values.name
     });
-    const userId = createNewUser.$id;
+    const userId = createNewUser.$id as string
     try {
       const patient = {
-        userId, // bug user id have type any
+        userId,
         name: values.name,
         email: values.email,
         password: values.password,
