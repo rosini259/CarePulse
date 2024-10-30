@@ -19,6 +19,7 @@ import SubmitButton from "../common/SubmitButton";
 export const Loginform = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const form = useForm<z.infer<typeof LoginFormValidation>>({
     resolver: zodResolver(LoginFormValidation),
@@ -30,25 +31,25 @@ export const Loginform = () => {
 
   const onSubmit = async (values: ILoginUserParams) => {
     setIsLoading(true);
-
+    setErrorMessage("");
     try {
       const user = {
         email: values.email,
         password: values.password,
-        name:values.name
+        name: values.name,
       };
-      // bug show error if the user not found
       const authUser = await auth(user);
-      const patient = await getPatient(authUser?.userId!)
+      const patient = await getPatient(authUser?.userId!);
       if (authUser) {
-        const name = convertToHyphenated(patient.name) 
+        const name = convertToHyphenated(patient.name);
         router.push(`/patients/${name}/new-appointment`);
       }
-    } catch (error) {
+    } catch (error:any) {
+      setErrorMessage(error?.message);
       console.error(error);
+    }finally{
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
   return (
     <Form {...form}>
@@ -74,6 +75,12 @@ export const Loginform = () => {
           label="password"
           placeholder="Ms0123456789#"
         />
+
+        {errorMessage && (
+          <div className="shad-error text-sm font-medium text-red-500 dark:text-red-900">
+            {errorMessage}
+          </div>
+        )}
 
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
