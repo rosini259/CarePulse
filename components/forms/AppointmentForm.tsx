@@ -1,17 +1,14 @@
 "use client";
-
-import Image from "next/image";
 import { useEffect } from "react";
 
-import { SelectItem } from "@/components/ui/select";
 import useAppointmentForm, {
   IAppointmentForm,
 } from "@/hooks/useAppointmentForm";
 import "react-datepicker/dist/react-datepicker.css";
-import useDoctorList from "@/hooks/useDoctorList";
 import { FormFieldType } from "@/types/enums";
 
 import CustomFormField from "../common/CustomFormField";
+import DoctorList from "../common/DoctorList";
 import SubmitButton from "../common/SubmitButton";
 import { Form } from "../ui/form";
 
@@ -22,7 +19,7 @@ export const AppointmentForm = ({
   appointment,
   setOpen,
   hyphenatedName,
-  primaryPhysician
+  primaryPhysician,
 }: IAppointmentForm) => {
   const { form, onSubmit, buttonLabel, isLoading } = useAppointmentForm({
     userId,
@@ -33,8 +30,6 @@ export const AppointmentForm = ({
     setOpen,
     primaryPhysician,
   });
-
-  const { doctors, loading } = useDoctorList();
 
   useEffect(() => {
     if (form.getValues("primaryPhysician") === "") {
@@ -54,35 +49,7 @@ export const AppointmentForm = ({
         )}
         {type !== "cancel" && (
           <>
-            <CustomFormField
-              fieldType={FormFieldType.SELECT}
-              control={form.control}
-              name="primaryPhysician"
-              label="Doctor"
-              placeholder="Select a doctor"
-              value={primaryPhysician!}
-            >
-              {loading && <div>Loading...</div>}
-              {/* bug there is dublication in this element */}
-              {!loading &&
-                doctors?.map((doctor, i) => (
-                  <SelectItem
-                    key={doctor.nameDoctor + i}
-                    value={doctor.nameDoctor}
-                  >
-                    <div className="flex cursor-pointer items-center gap-2">
-                      <Image
-                        src={doctor.doctorPictureUrl}
-                        width={32}
-                        height={32}
-                        alt="doctor"
-                        className="size-9 rounded-full border border-dark-500 "
-                      />
-                      <p>{doctor.nameDoctor}</p>
-                    </div>
-                  </SelectItem>
-                ))}
-            </CustomFormField>
+            <DoctorList primaryPhysician={primaryPhysician!} form={form} label="doctor"/>
 
             <CustomFormField
               fieldType={FormFieldType.DATE_PICKER}

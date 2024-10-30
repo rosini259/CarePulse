@@ -1,7 +1,4 @@
 "use client";
-
-import Image from "next/image";
-
 import { Form, FormControl } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -9,17 +6,16 @@ import { SelectItem } from "@/components/ui/select";
 import { GenderOptions, IdentificationTypes } from "@/constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
-import useDoctorList from "@/hooks/useDoctorList";
 import useRegisterForm from "@/hooks/useRegisterForm";
 import { FormFieldType } from "@/types/enums";
 
 import CustomFormField from "../common/CustomFormField";
+import DoctorList from "../common/DoctorList";
 import SubmitButton from "../common/SubmitButton";
 import { FileUploader } from "../FileUploader";
 
 const RegisterForm = () => {
   const { form, isLoading, onSubmit } = useRegisterForm();
-  const {doctors,loading} = useDoctorList()
   return (
     <Form {...form}>
       <form
@@ -152,34 +148,7 @@ const RegisterForm = () => {
           </div>
 
           {/* PRIMARY CARE PHYSICIAN */}
-          <CustomFormField
-            fieldType={FormFieldType.SELECT}
-            control={form.control}
-            name="primaryPhysician"
-            label="Primary care physician"
-            placeholder="Select a physician"
-          >
-            {loading && <div>Loading...</div>}
-            {/* bug there is dublication in this element */}
-            {!loading &&
-              doctors?.map((doctor, i) => (
-                <SelectItem
-                  key={doctor.nameDoctor + i}
-                  value={doctor.nameDoctor}
-                >
-                  <div className="flex cursor-pointer items-center gap-2">
-                    <Image
-                      src={doctor.doctorPictureUrl}
-                      width={32}
-                      height={32}
-                      alt="doctor"
-                      className="size-9 rounded-full border border-dark-500 "
-                    />
-                    <p>{doctor.nameDoctor}</p>
-                  </div>
-                </SelectItem>
-              ))}
-          </CustomFormField>
+          <DoctorList form={form} label="Primary care physician" />
 
           {/* INSURANCE & POLICY NUMBER */}
           <div className="section-custom-field">
