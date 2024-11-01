@@ -133,6 +133,10 @@
     @apply flex w-full items-center justify-between space-x-2 p-4;
   }
 
+  .table-filter{
+    @apply flex w-full py-4 flex-col items-start gap-1
+  }
+
   /* ===== ALIGNMENTS */
   .flex-center {
     @apply flex items-center justify-center;

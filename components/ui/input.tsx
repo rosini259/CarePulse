@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  showpasswordtype: "text" | "password"
+  showpasswordtype?: "text" | "password"
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
