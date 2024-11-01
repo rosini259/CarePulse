@@ -25,7 +25,7 @@ const AddDoctorButton = () => {
           add doctor
         </Button>
       </DialogTrigger>
-      <DialogContent className="shad-dialog sm:max-w-md">
+      <DialogContent className="shad-dialog max-sm:w-max sm:max-w-md">
 
         <DialogHeader className="mb-4 space-y-3">
           <DialogTitle className="capitalize tracking-wider">

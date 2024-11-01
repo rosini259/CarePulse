@@ -31,7 +31,7 @@ export const PasskeyModal = () => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent className="shad-alert-dialog">
-        <AlertDialogHeader>
+        <AlertDialogHeader className="max-sm:w-auto">
           <AlertDialogTitle className="flex items-start justify-between">
             Admin Access Verification
             <Image
@@ -52,7 +52,7 @@ export const PasskeyModal = () => {
             maxLength={6}
             value={passkey}
             onChange={(value) => setPasskey(value)}
-            onComplete={()=> validatePasskey()}
+            onComplete={() => validatePasskey()}
           >
             <InputOTPGroup className="shad-otp">
               <InputOTPSlot className="shad-otp-slot" index={0} />
