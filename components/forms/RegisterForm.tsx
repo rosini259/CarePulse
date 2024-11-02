@@ -36,6 +36,7 @@ const RegisterForm = () => {
             fieldType={FormFieldType.INPUT}
             control={form.control}
             name="name"
+            label="Full Name"
             placeholder="Mohamed Sami"
             iconSrc="/assets/icons/user.svg"
             iconAlt="user"
@@ -46,7 +47,7 @@ const RegisterForm = () => {
               fieldType={FormFieldType.INPUT}
               control={form.control}
               name="email"
-              label="Email address"
+              label="Email Address"
               placeholder="MedoSami@gmail.com"
               iconSrc="/assets/icons/email.svg"
               iconAlt="email"
