@@ -20,7 +20,7 @@ const AdminPage = async () => {
             height={32}
             width={162}
             alt="logo"
-            className="h-8 w-fit"
+            className="size-auto w-fit"
           />
         </Link>
 
@@ -35,7 +35,7 @@ const AdminPage = async () => {
               Start the day with managing new appointments
             </p>
           </div>
-          <AddDoctorButton/>
+          <AddDoctorButton />
         </section>
 
         <section className="admin-stat">

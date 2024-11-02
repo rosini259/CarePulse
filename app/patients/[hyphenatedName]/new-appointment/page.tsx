@@ -34,11 +34,12 @@ const Appointment = async ({
       </section>
 
       <Image
-        src="/assets/images/appointment-img.png"
+        src="/assets/images/appointment-img.jpg"
         height={1500}
         width={1500}
         alt="appointment"
         className="side-img max-w-[390px] bg-bottom"
+        priority
       />
     </div>
   );

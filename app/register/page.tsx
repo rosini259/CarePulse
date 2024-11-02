@@ -22,7 +22,7 @@ const Register = async () => {
       </section>
 
       <Image
-        src="/assets/images/register-img.png"
+        src="/assets/images/register-img.jpg"
         height={1000}
         width={1000}
         alt="patient"
