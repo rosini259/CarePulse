@@ -9,9 +9,12 @@ import { createUser, registerPatient } from "@/lib/actions/patient.actions";
 import { convertToHyphenated, storeFileInfoAsFormdata } from "@/lib/utils";
 import { RegisterFormValidation } from "@/lib/validation";
 
+import { useToast } from "./use-toast";
+
 const useRegisterForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof RegisterFormValidation>>({
     resolver: zodResolver(RegisterFormValidation),
     defaultValues: {
@@ -61,9 +64,14 @@ const useRegisterForm = () => {
       }
     } catch (error) {
       console.error(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    }finally{
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
   return {form,onSubmit,isLoading};
 };

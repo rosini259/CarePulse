@@ -11,6 +11,8 @@ import {
 import { getAppointmentSchema } from "@/lib/validation";
 import { Appointment } from "@/types/appwrite.types";
 
+import { useToast } from "./use-toast";
+
 export interface IAppointmentForm {
   hyphenatedName?: string;
   userId: string;
@@ -31,6 +33,7 @@ const useAppointmentForm = ({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const AppointmentFormValidation = getAppointmentSchema(type);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
@@ -103,8 +106,14 @@ const useAppointmentForm = ({
       }
     } catch (error) {
       console.error(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    }finally{
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   let buttonLabel;

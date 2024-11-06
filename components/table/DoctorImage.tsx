@@ -1,10 +1,14 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { useToast } from "@/hooks/use-toast";
 import { getDoctorImageByName } from "@/lib/actions/appointment.actions";
 
-const DoctorImage = ({ doctorName }:{doctorName:string}) => {
+import { Toaster } from "../ui/toaster";
+
+const DoctorImage = ({ doctorName }: { doctorName: string }) => {
   const [doctorImage, setDoctorImage] = useState("");
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchDoctorImage = async () => {
@@ -13,11 +17,16 @@ const DoctorImage = ({ doctorName }:{doctorName:string}) => {
         setDoctorImage(image!);
       } catch (error) {
         console.error(error);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        });
       }
     };
 
     fetchDoctorImage();
-  }, [doctorName]);
+  }, [doctorName, toast]);
 
   return doctorImage ? (
     <Image
@@ -28,7 +37,10 @@ const DoctorImage = ({ doctorName }:{doctorName:string}) => {
       className="size-8"
     />
   ) : (
-    <div>Loading...</div>
+    <>
+      <div>Loading...</div>
+      <Toaster />
+    </>
   );
 };
 

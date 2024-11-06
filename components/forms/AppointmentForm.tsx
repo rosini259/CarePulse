@@ -11,6 +11,7 @@ import CustomFormField from "../common/CustomFormField";
 import DoctorList from "../common/DoctorList";
 import SubmitButton from "../common/SubmitButton";
 import { Form } from "../ui/form";
+import { Toaster } from "../ui/toaster";
 
 export const AppointmentForm = ({
   userId,
@@ -49,7 +50,11 @@ export const AppointmentForm = ({
         )}
         {type !== "cancel" && (
           <>
-            <DoctorList primaryPhysician={primaryPhysician!} form={form} label="doctor"/>
+            <DoctorList
+              primaryPhysician={primaryPhysician!}
+              form={form}
+              label="doctor"
+            />
 
             <CustomFormField
               fieldType={FormFieldType.DATE_PICKER}
@@ -101,6 +106,7 @@ export const AppointmentForm = ({
           {buttonLabel}
         </SubmitButton>
       </form>
+      <Toaster />
     </Form>
   );
 };
