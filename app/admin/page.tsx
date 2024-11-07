@@ -22,11 +22,13 @@ const AdminPage = async () => {
               height={32}
               width={162}
               alt="logo"
-              className="size-auto w-fit"
+              className="size-auto w-fit max-sm:w-4/5"
             />
           </Link>
 
-          <p className="text-16-semibold">Admin Dashboard</p>
+          <p className="font-semibold max-sm:text-sm">
+            Admin Dashboard
+          </p>
         </header>
 
         <main className="admin-main">

@@ -18,7 +18,7 @@ const Appointment = async ({
     <>
       <div className="flex h-screen max-h-screen">
         <section className="remove-scrollbar container my-auto">
-          <div className="sub-container max-w-[860px] flex-1 justify-between">
+          <div className="sub-container h-screen max-h-screen max-w-[860px] flex-1 justify-between">
             <Image
               src="/assets/icons/logo-full.svg"
               height={1000}
