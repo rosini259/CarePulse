@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import ToasterOnServer from "@/components/ToasterOnServer";
 import { Button } from "@/components/ui/button";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 import {
   getAppointment,
   getDoctorImageByName,
@@ -14,26 +13,15 @@ const RequestSuccess = async ({
   searchParams,
   params: { hyphenatedName },
 }: SearchParamProps) => {
-  const { toast } = useToast();
   const appointmentId = (searchParams?.appointmentId as string) || "";
   const appointment = await getAppointment(appointmentId).catch((error) => {
     console.error(error);
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-    });
   });
 
   const imageUrl = await getDoctorImageByName(
     appointment.primaryPhysician
   ).catch((error) => {
     console.error(error);
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-    });
   });
   return (
     <>
@@ -57,6 +45,7 @@ const RequestSuccess = async ({
               alt="success"
               priority
               className="size-auto"
+              unoptimized
             />
             <h2 className="header mb-6 max-w-[600px] text-center">
               Your <span className="text-green-500">appointment request</span>{" "}
@@ -99,7 +88,7 @@ const RequestSuccess = async ({
           <p className="copyright">© 2024 CarePluse</p>
         </div>
       </div>
-      <Toaster />
+      <ToasterOnServer serverAction={imageUrl} />
     </>
   );
 };

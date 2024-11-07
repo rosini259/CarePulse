@@ -5,19 +5,12 @@ import AddDoctorButton from "@/components/AddDoctorButton";
 import { StatCard } from "@/components/StatCard";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/DataTable";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
+import ToasterOnServer from "@/components/ToasterOnServer";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 
 const AdminPage = async () => {
-  const { toast } = useToast();
   const appointments = await getRecentAppointmentList().catch((error) => {
-    console.log(error);
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-    });
+    console.error(error);
   });
   return (
     <>
@@ -71,7 +64,7 @@ const AdminPage = async () => {
           <DataTable columns={columns} data={appointments.documents} />
         </main>
       </div>
-      <Toaster />
+      <ToasterOnServer serverAction={appointments} />
     </>
   );
 };

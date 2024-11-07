@@ -1,25 +1,18 @@
 import Image from "next/image";
 
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
+import ToasterOnServer from "@/components/ToasterOnServer";
 import { getPatient, getUserIdByName } from "@/lib/actions/patient.actions";
 import { convertToSpaceSeparated } from "@/lib/utils";
 
 const Appointment = async ({
   params: { hyphenatedName },
 }: SearchParamProps) => {
-  const { toast } = useToast();
   const userId = await getUserIdByName(
     convertToSpaceSeparated(hyphenatedName)!
   );
   const patient = await getPatient(userId!).catch((error) => {
-    console.log(error);
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-    });
+    console.error(error);
   });
   return (
     <>
@@ -55,7 +48,7 @@ const Appointment = async ({
           priority
         />
       </div>
-      <Toaster />
+      <ToasterOnServer serverAction={patient} />
     </>
   );
 };
