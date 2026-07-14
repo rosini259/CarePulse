@@ -2,11 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 import { auth, getPatient } from "@/lib/actions/patient.actions";
 import "react-phone-number-input/style.css";
 import { convertToHyphenated } from "@/lib/utils";
@@ -17,6 +18,15 @@ import CustomFormField from "../common/CustomFormField";
 import SubmitButton from "../common/SubmitButton";
 
 export const Loginform = () => {
+  const { toast } = useToast();
+  useEffect(() => {
+    toast({
+      variant: "default",
+      title: "if u need to sign-in. you can type that",
+      description: "email: example@gmail.com   password: Ms123456789#",
+    });
+  }, [toast]);
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,10 +54,10 @@ export const Loginform = () => {
         const name = convertToHyphenated(patient.name);
         router.push(`/patients/${name}/new-appointment`);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       setErrorMessage(error?.message);
       console.error(error);
-    }finally{
+    } finally {
       setIsLoading(false);
     }
   };
